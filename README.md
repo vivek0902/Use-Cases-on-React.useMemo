@@ -122,4 +122,52 @@ const ProductList = () => {
 
   const memoizedProducts = useMemo(() => products, [products]);
 
-  if (loading) return <div>Loa
+  if (loading) return <div>Loading...</div>;
+
+  return (
+    <div>
+      <h1>Product List</h1>
+      <div>
+        <button onClick={() => setCategory('all')}>All</button>
+        <button onClick={() => setCategory('electronics')}>Electronics</button>
+        <button onClick={() => setCategory('clothing')}>Clothing</button>
+      </div>
+      <ul>
+        {memoizedProducts.map(product => (
+          <li key={product.id}>{product.name}</li>
+        ))}
+      </ul>
+    </div>
+  );
+};
+
+export default ProductList;
+```
+**How `useMemo` Works Here:**
+- The API call is only made when the `category` changes.
+- Prevents unnecessary API calls when the component re-renders.
+
+---
+
+## Key Takeaways
+- **Performance Optimization**: `useMemo` prevents expensive calculations from running on every render by memoizing results.
+- **Optimizing Child Component Re-renders**: Helps prevent unnecessary re-renders of child components when passed objects, arrays, or functions as props.
+- **Recalculating on Dependency Change**: You can specify dependencies, and `useMemo` will only recompute when they change.
+- **Use Wisely**: `useMemo` introduces some overhead, so it's best used for expensive calculations or preventing unnecessary renders.
+
+---
+
+## When to Use `useMemo` with API Calls
+- When API data is relatively static and doesn't need to be fetched on every render.
+- When frequent state changes might cause redundant API requests.
+- When performance optimization is crucial to reduce unnecessary fetch calls.
+
+---
+
+## Conclusion
+`React.useMemo` is a powerful hook for optimizing performance in React applications by memoizing values, preventing unnecessary re-renders, and avoiding redundant calculations. However, it should be used thoughtfully to avoid unnecessary complexity.
+
+---
+
+### Let me know if you need further clarification or have more use cases in mind!
+
